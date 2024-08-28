@@ -6,15 +6,38 @@
 /*   By: nlaerema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2023/07/26 12:59:59 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:28:51 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_hexdump.h"
 
+t_putoc_buf	*get_putoc_buf(void)
+{
+	static t_putoc_buf	ocbuf;
+
+	return (&ocbuf);
+}
+
 void	ft_putoc(t_oc c)
 {
-	write(1, &c, 1);
+	t_putoc_buf	*ocbuf;
+
+	ocbuf = get_putoc_buf();
+	ocbuf->buf[ocbuf->size++] = c;
+	if (BUF_SIZE <= ocbuf->size)
+	{
+		write(1, ocbuf->buf, ocbuf->size);
+		ocbuf->size = 0;
+	}
+}
+
+void	ft_cleanup(void)
+{
+	t_putoc_buf	*ocbuf;
+
+	ocbuf = get_putoc_buf();
+	write(1, ocbuf->buf, ocbuf->size);
 }
 
 void	*ft_memcpy(void *dest, void *src, size_t n)
