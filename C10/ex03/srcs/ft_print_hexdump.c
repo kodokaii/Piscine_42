@@ -6,7 +6,7 @@
 /*   By: nlaerema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/05 10:58:17 by nlaerema          #+#    #+#             */
-/*   Updated: 2023/07/27 18:19:54 by nlaerema         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:16:51 by nlaerema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void	ft_puthexa(t_oc c, t_oc d, int option, int size)
 		ft_putoc(HEXA[c % 16]);
 	}
 	else
-		write(1, "  ", 2);
+	{
+		ft_putoc(' ');
+		ft_putoc(' ');
+	}
 	if (option == C_OPTION)
 		ft_putoc(' ');
 	if (0 < size - 1)
@@ -48,7 +51,10 @@ void	ft_puthexa(t_oc c, t_oc d, int option, int size)
 		ft_putoc(HEXA[d % 16]);
 	}
 	else
-		write(1, "  ", 2);
+	{
+		ft_putoc(' ');
+		ft_putoc(' ');
+	}
 }
 
 void	ft_print_hexa(t_oc buf[16], int size, int option)
@@ -72,7 +78,10 @@ void	ft_print_hexa(t_oc buf[16], int size, int option)
 		i += 2;
 	}
 	if (option == C_OPTION)
-		write(1, "  ", 2);
+	{
+		ft_putoc(' ');
+		ft_putoc(' ');
+	}
 }
 
 void	ft_print_ascii(t_oc buf[16], int size)
@@ -107,7 +116,8 @@ void	ft_print_hexdump(t_hexbuf *hexbuf, int option)
 	}
 	else if (!hexbuf->is_same)
 	{
-		write(1, "*\n", 2);
+		ft_putoc('*');
+		ft_putoc('\n');
 		hexbuf->is_same = 1;
 	}
 	ft_memcpy(hexbuf->old, hexbuf->buf, hexbuf->size);
